@@ -1,0 +1,90 @@
+PROYECTO: The Lights Before Dawn (boceto funcional - 2 semanas)
+===============================================================
+
+CONTEXTO DEL JUEGO (extraido de High Concept)
+- Genero: Survival horror + terror psicologico + sigilo
+- CAMARA: TERCERA PERSONA OBLIGATORIA (sobre el hombro, fija)
+- Jugador: un nino en su casa de 2 pisos durante la madrugada
+- Enemigos: 1-2 alienigenas investigativos (deambulan lento, se detienen
+  a observar objetos, reaccionan a sonidos, persiguen al ver al jugador)
+- Movimiento: caminar (silencioso), correr (ruidoso), agacharse,
+  arrastrarse boca abajo, saltar
+- Interaccion: tomar objetos pequenos (tecla F), arrojarlos como
+  distraccion (tecla E), abrir/cerrar puertas
+- Anomalia espacial: a los ~3 min de partida, al abrir una puerta esta
+  reconecta aleatoriamente con otra habitacion de la casa
+- Victoria: sobrevivir hasta el amanecer (temporizador OCULTO)
+- Derrota: ser atrapado -> destello + primer plano del alien -> negro
+  -> menu principal
+- Ambiente: casa familiar anos 90, madrugada (2:00-6:00), paleta oscura
+  y desaturada, luz escasa
+- Habitaciones (del documento): habitacion del nino, habitacion de los
+  padres, living, 2 banos, cocina, comedor, deposito, recepcion,
+  escaleras, escondites (armarios, alacenas bajomesadas)
+
+ESTADO TECNICO
+- Unity 6000.3.5f2 (Unity 6) con URP ya configurado
+- Carpeta: C:\Users\ecles\The Lights Before Dawn
+- Assets: solo template vacio (SampleScene + Settings URP + InputSystem)
+- El propio High Concept propone: ProBuilder + habitaciones modulares
+
+PENDIENTE: DISTRIBUCION DE LOS PLANOS
+- Archivos: C:\Users\ecles\OneDrive\Desktop\Planos\
+  (Planta baja 2d.png, Planta alta 2d.png, versiones 3d)
+- Un modelo con vision debe describir: habitaciones por planta,
+  medidas aproximadas (m), posicion de puertas, escalera y pasillos
+
+PLAN DE 2 SEMANAS (tercera persona)
+Semana 1:
+  D1-2: Setup de escena: personaje tercera persona (CharacterController
+        + Cinemachine o camara over-the-shoulder propia), Input System
+  D3-4: Casa con ProBuilder segun planos (paredes, pisos, puertas,
+        escalera), escondites
+  D5:   Iluminacion de terror (linterna/velas, luz de luna, niebla,
+        postprocesado URP)
+Semana 2:
+  D6-7: Alienigena con NavMesh: deambular, investigar sonidos, detectar
+        al jugador (vision + sonido), perseguir, atrapar
+  D8:   Interaccion: tomar/arrojar objetos (distraccion por sonido),
+        abrir/cerrar puertas, esconderse
+  D9:   Anomalia espacial: puertas que reconectan habitaciones al azar
+        (a los 3 min), temporizador oculto hasta el amanecer
+  D10:  Menu principal, HUD minimo, victoria/derrota, build ejecutable
+        y video de presentacion
+
+OBJETIVO DEL BOCETO PARA LA EVALUACION
+- Navegacion 3D por la casa (prioridad maxima)
+- Al menos 1 alien con deteccion y persecucion
+- 1-2 escondites y 1 distraccion funcional
+- Loop completo corto: despertar -> sobrevivir -> amanecer/captura
+
+DECISION DE UNIFICACION DE PLANOS
+- Huella exterior comun ampliada un 14%: 15.50 m x 9.46 m para ambas plantas.
+- La escalera no se escala con la ampliacion: queda con aproximadamente 1.40 m
+  de ancho util para conservar una circulacion mas contenida.
+- El salto base es de 0.50 m y aumenta un 35% al correr (0.675 m).
+- La pared entre el cuarto infantil y la biblioteca es continua, sin puerta.
+- Los espacios sobre todas las puertas se completan hasta el techo con dinteles
+  de pared independientes. Las puertas interiores quedan como paneles visuales
+  sin collider para poder recorrer el prototipo; la entrada principal es doble
+  y tiene collider.
+- La escalera se conserva con el ajuste manual guardado en la escena: desplazada
+  hacia el muro exterior derecho, con escala local X 1.0422405 y Z 0.9799391;
+  el hueco de la losa se adapta a esa posicion.
+- Las puertas tienen un objeto pivote ubicado en la jamba, una hoja hija con
+  collider y sentido de apertura tomado de los arcos de los planos 2D. La tecla E
+  las abre y cierra mediante un raycast desde el centro de la camara.
+
+ANOMALIA ESTRUCTURAL - PRIMER PROTOTIPO
+- La anomalia esta activa desde el inicio, sin temporizador.
+- La puerta es el unico detonante: al abrirla el jugador, un Room existente se
+  reubica detras del vano; el jugador nunca es teletransportado.
+- Doorway permanece fijo en el marco y Room se alinea mediante Entrance.
+- La seleccion usa Strategy y la aplicacion usa SpatialAnomalyManager (Singleton).
+- El cambio emite OnRoomConnectionChanged (Observer).
+- Muros exteriores alineados verticalmente; espesor de referencia: 0.18 m.
+- Altura entre pisos: 3.00 m; losa: 0.20 m.
+- La escalera queda en el hall derecho y tiene un hueco real en la losa alta.
+- Las diferencias menores de ejes interiores se resuelven como tabiques no
+  portantes. La geometria generada queda separada por muros, pisos y escalones
+  para poder corregirla desde Unity sin reconstruir todo.

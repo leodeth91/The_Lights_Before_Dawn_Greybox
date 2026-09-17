@@ -1,0 +1,12 @@
+# Criterios del proyecto
+
+- Conservar los cambios manuales de escenas y prefabs. Antes de modificar una escena abierta, revisar su estado y guardar una copia de la distribución actual. No regenerar habitaciones ni aplicar o revertir sus overrides para resolver cambios de código.
+- Los nombres visibles de GameObjects deben estar en español. Se mantienen términos habituales como Player, Alien, ProBuilder, UI, Canvas y pool. Las clases, métodos, campos, archivos de código, tags, acciones de Input System y códigos internos de habitaciones/conexiones permanecen en inglés.
+- Escribir los comentarios importantes de los scripts en español sencillo, comprensible para un estudiante de primer año. Explicar para qué sirve cada decisión.
+- Usar las referencias de componentes para las mecánicas. Al cambiar etiquetas, revisar las búsquedas por nombre. Las herramientas del editor usan SpanishHierarchySetup para reconocer nombres anteriores y actuales.
+- No cambiar los materiales elegidos por el usuario para Player y el prefab Alien, ni los intervalos de pasos configurados manualmente.
+- Distribución manual registrada el 14/09/2026: silla de la oficina (ahora SillaOficina), posición local (1.1, 0, 1.055), rotación local alrededor de Y de aproximadamente 155 grados. Mantener también el televisor reubicado y las ventanas/escondites acomodados por el usuario.
+- La pared añadida por el usuario en el descanso superior se llama ahora Pared_DescansoSuperior_Seguridad (antes Wall_UpperLanding_Safety). Conservar posición local (-1.1066, 4.4119, 1.7214), escala (1.021, 0.9963755, 0.9416), material y collider.
+- El respaldo de referencia y el inventario completo de transforms están en Backups/SpanishHierarchy-20260914. No restaurarlo por encima de cambios manuales posteriores.
+- El problema de salida de la cama de los padres fue pospuesto por el usuario. No mover su mobiliario como parte de tareas no relacionadas.
+- Cambios manuales de la oficina registrados el 15/09/2026: SofaOficina aproximadamente (-0.82, 0, -1.80), y ESCONDITE_U16_CortinaOficinaOeste aproximadamente (-2.81, 0, 0.22), con su ventana. Conservar también el celular reubicado manualmente sobre el sillón. La copia exacta de la escena abierta y el inventario están en Backups/OfficeManual-20260915-080924; no restaurarlos sobre cambios posteriores.
